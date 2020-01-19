@@ -75,7 +75,7 @@ export default function Browse(props) {
   
   return (
     <>
-      {renderPazzaz()}
+      {isLoading ? renderPazzaz() : renderVideos()}
     </>
   );
 }
