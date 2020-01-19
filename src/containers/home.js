@@ -1,12 +1,14 @@
 import './home.css';
 
 import { Button } from 'antd';
+import GoogleAuth from '../helpers/googleAuth';
 import React from "react";
 import tape from './tape.svg';
 
 export default function Home(props) {
 
   async function browse() {
+    await GoogleAuth.signIn();
     props.history.push("/browse");
   }
   

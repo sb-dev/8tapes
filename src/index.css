@@ -10,3 +10,6 @@ body {
 #root, .App, section.ant-layout {
   height: 100%;
 }
+
+
+.pointer:hover {cursor: pointer;}

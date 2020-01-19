@@ -2,6 +2,7 @@ import './browse.css';
 
 import React, { useEffect, useState } from "react";
 
+import GoogleAuth from '../helpers/googleAuth';
 import { Layout } from 'antd';
 import { Link } from "react-router-dom";
 import logo from './logo.svg';
@@ -25,11 +26,16 @@ export default function Browse() {
     return (<img src={pizzaz} />);
   }
 
+  async function handleSignOut() {
+    await GoogleAuth.signOut();
+    props.history.push("/");
+  }
+
   function renderVideos() {
     return (
       <Layout>
         <Header>
-          <Link to="/"><img src={logo} className="header-logo" alt="logo" /></Link>
+          <div onClick={handleSignOut}><img src={logo} className="header-logo" alt="logo" /></div>
         </Header>
         <Content>Browse</Content>
       </Layout>
