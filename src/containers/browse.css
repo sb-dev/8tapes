@@ -5,3 +5,10 @@ header.ant-layout-header {
 .video {
     width: 100%;
 }
+
+
+@media only screen and (max-width: 1000px) {
+    .pizzaz {
+      width: 100%;
+    }
+  }

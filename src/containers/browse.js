@@ -6,9 +6,12 @@ import React, { useEffect, useState } from "react";
 import { Card } from 'antd';
 import GoogleAuth from '../helpers/googleAuth';
 import { Layout } from 'antd';
+import { ReactSVG } from 'react-svg';
 import loadLikedVideos from '../helpers/youtubeHelpers'
 import logo from './logo.svg';
 import pizzaz from './pizzaz.gif';
+
+;
 
 const { Header, Content } = Layout;
 
@@ -33,7 +36,7 @@ export default function Browse(props) {
   }, [fetchVideos]);
 
   function renderPazzaz() {
-    return (<img src={pizzaz} />);
+    return (<img src={pizzaz} className="pizzaz"/>);
   }
 
   async function handleSignOut() {
@@ -72,7 +75,7 @@ export default function Browse(props) {
   
   return (
     <>
-      {isLoading ? renderPazzaz() : renderVideos()}
+      {renderPazzaz()}
     </>
   );
 }
