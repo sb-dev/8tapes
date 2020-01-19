@@ -11,5 +11,8 @@ body {
   height: 100%;
 }
 
+.handwritten {
+  font-family: 'Caveat', cursive;
+}
 
 .pointer:hover {cursor: pointer;}

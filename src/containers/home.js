@@ -15,10 +15,10 @@ export default function Home(props) {
   return (
     <header className="home-header">
       <img src={tape} className="App-logo" alt="logo" />
-      <p>
-        Source from the 8tapes community, curated for you
-      </p>
-      <Button onClick={browse} type="dashed">Get Started</Button>
+      <h1 className={'handwritten'}>
+        Sourced from the 8tapes community, curated for you.
+      </h1>
+      <Button onClick={browse} type="dashed" size={'large'}>Get Started</Button>
     </header>
   );
 }
