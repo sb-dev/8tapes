@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 import { Card } from 'antd';
 import GoogleAuth from '../helpers/googleAuth';
 import { Layout } from 'antd';
-import { ReactSVG } from 'react-svg';
 import loadLikedVideos from '../helpers/youtubeHelpers'
 import logo from './logo.svg';
 import pizzaz from './pizzaz.gif';
