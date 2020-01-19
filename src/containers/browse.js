@@ -50,12 +50,11 @@ export default function Browse(props) {
         <Content>
         <Row>
           {videos.map((video, i) => {return (
-            <Col span={4} key={video.id}>
+            <Col lg={4} md={8} sm={12} xs={24} key={video.id}>
               <Card
-                className={'pointer'}
+                className={'pointer video'}
                 onClick={()=> window.open(video.url, "_blank")}
                 bodyStyle={{ display: 'none' }}
-                style={{ width: 300 }}
                 cover={
                     <img
                       alt={video.title}
