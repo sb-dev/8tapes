@@ -13,7 +13,9 @@ export default class GoogleAuth {
                 'scope': scope
             }).then(() => {
               this.auth = gapi.auth2.getAuthInstance();
-              this.auth.isSignedIn.listen(this.updateSigninStatus);
+              this.auth.isSignedIn.listen(() => {
+                this.updateSigninStatus();
+              });
             });
         };
 
