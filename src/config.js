@@ -6,6 +6,9 @@ const dev = {
       youtube: {
         DISCOVERY_URL: 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest',
         SCOPE: 'https://www.googleapis.com/auth/youtube.force-ssl'
+      },
+      googleAnalytics: {
+        TRACKING_ID: process.env.REACT_APP_GOOGLE_TRACKING_ID
       }
     }
   }
@@ -19,6 +22,9 @@ const prod = {
       youtube: {
         DISCOVERY_URL: 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest',
         SCOPE: 'https://www.googleapis.com/auth/youtube.force-ssl'
+      },
+      googleAnalytics: {
+        TRACKING_ID: process.env.REACT_APP_GOOGLE_TRACKING_ID
       }
     }
   }
@@ -30,6 +36,5 @@ const config = process.env.APP_ENV === 'prod'
   : dev;
 
 export default {
-  YOUTUBE_DISCOVERY_URL: 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest',
   ...config
 };
