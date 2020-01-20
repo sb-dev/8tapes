@@ -8,7 +8,7 @@
   }
   
   .home-header {
-    min-height: 100vh;
+    min-height: calc(100vh - 21px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -29,5 +29,13 @@
   color: #C16E4C;
   background-color: #fff;
   border-color: #E7B365;
+}
+
+a {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+a:hover {
+  color: #E7B365;
 }
   

@@ -4,15 +4,9 @@ import { Col, Row } from 'antd';
 import React, { useEffect, useState } from "react";
 
 import { Card } from 'antd';
-import GoogleAuth from '../helpers/googleAuth';
-import { Layout } from 'antd';
+import Layout from '../components/layout';
 import loadLikedVideos from '../helpers/youtubeHelpers'
-import logo from './logo.svg';
 import pizzaz from './pizzaz.gif';
-
-;
-
-const { Header, Content } = Layout;
 
 export default function Browse(props) {
   const [videos, setVideos] = useState([]);
@@ -38,18 +32,9 @@ export default function Browse(props) {
     return (<img src={pizzaz} className="pizzaz"/>);
   }
 
-  async function handleSignOut() {
-    await GoogleAuth.signOut();
-    props.history.push("/");
-  }
-
   function renderVideos() {
     return (
       <Layout>
-        <Header>
-          <div onClick={handleSignOut}><img src={logo} className="header-logo" alt="logo" /></div>
-        </Header>
-        <Content>
         <Row>
           {videos.map((video, i) => {return (
             <Col lg={4} md={8} sm={12} xs={24} key={video.id}>
@@ -67,7 +52,6 @@ export default function Browse(props) {
             </Col>
           )})}
         </Row>
-        </Content>
       </Layout>
     );
   }
