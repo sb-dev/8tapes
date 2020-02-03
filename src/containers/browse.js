@@ -33,7 +33,7 @@ export default function Browse(props) {
       setIsLoading(false);
     }
 
-    setTimeout(() => { onLoad() }, 3000);
+    setTimeout(() => { onLoad() }, 1000);
   }, [fetchVideos]);
 
   function renderPazzaz() {
