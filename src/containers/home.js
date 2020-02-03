@@ -4,12 +4,16 @@ import { Button } from 'antd';
 import GoogleAuth from '../helpers/googleAuth';
 import { Link } from 'react-router-dom';
 import React from "react";
+import config from '../config';
 import tape from './tape.svg';
 
 export default function Home(props) {
 
   async function browse() {
-    await GoogleAuth.signIn();
+    if(config.googleServices.ENABLE_AUTH) {
+      await GoogleAuth.signIn();
+    }
+    
     props.history.push("/browse");
   }
   
