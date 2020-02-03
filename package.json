@@ -15,7 +15,9 @@
     "react-scripts": "3.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "concurrently 'npm run start-mock' 'npm run start-ui'",
+    "start-mock": "node mock/server.js",
+    "start-ui": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
