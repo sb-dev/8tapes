@@ -5,13 +5,20 @@ import React, { useEffect, useState } from "react";
 
 import { Card } from 'antd';
 import Layout from '../components/layout';
+import LazyLoad from 'react-lazyload';
+import { isMobile } from 'react-device-detect';
 import loadLikedVideos from '../helpers/youtubeHelpers'
 import pizzaz from './pizzaz.gif';
 
 export default function Browse(props) {
   const [videos, setVideos] = useState([]);
+  const [selected, setSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchVideos, setFetchVideos] = useState(0);
+
+  function handleVideoClick(video) {
+    isMobile ? window.open(video.url, "_blank") : setSelected(video)
+  }
 
   useEffect(() => {
     async function onLoad() {
@@ -35,12 +42,16 @@ export default function Browse(props) {
   function renderVideos() {
     return (
       <Layout>
+            {videos.map((category, i) => { return (
+              <div key={i}>
+                <h1>{category.label}</h1>
         <Row>
-          {videos.map((video, i) => {return (
-            <Col lg={4} md={8} sm={12} xs={24} key={video.id}>
+                {category.videos.map((video, i) => {
+                  return (<Col xl={3} lg={4} md={6} sm={8} xs={12} key={video.id}>
+                    <LazyLoad offset={100} once>
               <Card
                 className={'pointer video'}
-                onClick={()=> window.open(video.url, "_blank")}
+                          onClick={()=> handleVideoClick(video) }
                 bodyStyle={{ display: 'none' }}
                 cover={
                     <img
@@ -49,7 +60,11 @@ export default function Browse(props) {
                     />
                 }
               />
-            </Col>
+                    </LazyLoad>
+                  </Col>)
+                })}
+                </Row>
+              </div>
           )})}
         </Row>
       </Layout>

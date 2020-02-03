@@ -1,9 +1,30 @@
+.ant-layout-content {
+    padding: 24px;
+    padding-bottom: 84px;
+}
+
+h1 {
+    text-align: left;
+    margin-left: 14px;
+    margin-top: 24px;
+}
+
+.ant-layout-content h1:first-child {
+    margin-top: 0;
+}
+
 header.ant-layout-header {
     background: #fff;
 }
 
+.ant-col {
+    padding: 4px;
+}
+
 .video {
     width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 @media only screen and (max-width: 1000px) {
