@@ -3,15 +3,6 @@ Source from the 8tapes community, curated for you: <br />
 
 # Quick start
 
-## API config
-
-Create `.env.local` file:
-
-```
-GOOGLE_API_KEY=
-GOOGLE_CLIENT_ID=
-```
-
 ## Scripts
 
 ### `npm start`
