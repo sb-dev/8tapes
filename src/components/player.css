@@ -1,0 +1,99 @@
+.player {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,.6);
+}
+
+.player.active {
+    color: rgb(33, 33, 33);
+}
+
+.player .left {
+    flex: 1;
+    display: flex;
+}
+
+.player .left .image-wrapper {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+}
+
+.player .left .now-playing-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.player .left .now-playing-content {
+    flex: 1;
+    min-width: 0px;
+    text-align: left;
+}
+
+.player .left .now-playing-content .title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.player .left .now-playing-content .details {
+    color: #616161;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.player .center {
+    display: flex;
+    align-items: center;
+}
+
+.player .right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.player .right .button:last-child {
+    margin-right: 32px;
+}
+
+.player .button {
+    display: inline-block;
+    position: relative;
+    padding: 8px;
+    outline: none;
+    cursor: pointer;
+    z-index: 0;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box !important;
+}
+
+.player .button svg {
+    width: 24px;
+    height: 24px;
+}
+
+.play-button {
+    padding: 6px;
+}
+
+.active .play-button svg {
+    fill: #EB392A;
+}
+
+.play-button svg {
+    height: 48px;
+    width: 48px;
+}
