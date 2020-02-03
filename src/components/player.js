@@ -23,6 +23,13 @@ export default function Player(props) {
             player.playVideo()
         }
     }
+
+    function openVideoInYoutube() {
+        if (state === 'playing') {
+            player.pauseVideo()
+        }
+        window.open(props.selectedItem.url, "_blank")
+    }
     
     function _onReady(event) {
         console.log(event.target)
@@ -72,7 +79,14 @@ export default function Player(props) {
                 <div className="now-playing-wrapper">
                     <div className="now-playing-content">
                     <div className="title">{props.selectedItem.title}</div>
-                    <div className="details">{props.selectedItem.channelTitle}</div>
+                    <div className="details pointer" onClick={openVideoInYoutube}>
+                        <Icon 
+                            className="youtube-button" 
+                            type="youtube" 
+                            theme="filled" />
+                        &nbsp;
+                        {props.selectedItem.channelTitle}
+                    </div>
                     </div>
                 </div>
             </>

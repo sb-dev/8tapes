@@ -97,3 +97,17 @@
     height: 48px;
     width: 48px;
 }
+
+.youtube-button {
+    position: relative;
+    top: 2px;
+}
+
+.youtube-button svg {
+    height: 16px;
+    width: 16px;   
+}
+
+.now-playing-wrapper .details:hover .youtube-button svg{
+    fill: #f00
+}
