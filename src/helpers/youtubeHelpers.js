@@ -11,11 +11,12 @@ const categoriseVideos = (dataList) => {
     
     dataList.forEach(element => {
         element.items.forEach((item) => {
-            if(item.topicDetails && item.topicDetails.relevantTopicIds) {
+            if (item.topicDetails && item.topicDetails.relevantTopicIds) {
                 item.topicDetails.relevantTopicIds.forEach((topicId) => {
-                    const label = topicDetails[topicId].replace(' (parent topic)', '')
-                    if(topicDetails[topicId].includes('parent topic')) {
-                        if(!map[label]) {
+                    if (topicDetails[topicId] && topicDetails[topicId].includes('parent topic')) {
+                        const label = topicDetails[topicId].replace(' (parent topic)', '')
+                        
+                        if (!map[label]) {
                             map[label] = []
                         }
 
@@ -28,6 +29,8 @@ const categoriseVideos = (dataList) => {
                         })
 
                         processedItems[item.id] = true;
+                    } else if (!topicDetails[topicId]) {
+                        console.log("Unknown topic:", topicId)
                     }
                 })
             }
