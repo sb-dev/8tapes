@@ -6,7 +6,7 @@
 [build]
   base    = ""
   publish = "build"
-  command = "APP_ENV=dev npm run build"
+  command = "APP_ENV=prod npm run build"
 
 # Production context: All deploys to the main
 # repository branch will inherit these settings.
