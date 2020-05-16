@@ -8,9 +8,9 @@ const pageLimit = config.googleServices.services.youtube.QUERY_LIMIT;
 const categoriseVideos = (dataList) => {    
     const map = {};
     const processedItems = {};
-    
+
     dataList.forEach(element => {
-        element.items.forEach((item) => {
+        element.items && element.items.forEach((item) => {
             if (item.topicDetails && item.topicDetails.relevantTopicIds) {
                 item.topicDetails.relevantTopicIds.forEach((topicId) => {
                     if (topicDetails[topicId] && topicDetails[topicId].includes('parent topic')) {
@@ -45,27 +45,50 @@ const categoriseVideos = (dataList) => {
     }).sort((a, b) => a.videos.length > b.videos.length ? -1 : 1)
 }
 
-const getLikedVideos = (pageToken) => axios({
-    method: 'GET',
-    headers: { 'Authorization': `Bearer ${config.googleServices.ENABLE_AUTH ? GoogleAuth.getCurrentUserToken() : ''}` },
-    params: {
-        'myRating': 'like',
-        'part': 'snippet,contentDetails,topicDetails,statistics',
-        'maxResults': '50',
-        'pageToken': pageToken,
-    },
-    url: `${config.googleServices.services.youtube.URL}/videos`
-})
+const getLikedVideos = (pageToken) => {
+    return new Promise(async (resolve) => {
+        if(config.googleServices.ENABLE_AUTH) {
+            const client = await GoogleAuth.getClient()
+            const request = client.request({
+                'method': 'GET',
+                'path': '/youtube/v3/videos',
+                'params': {
+                    'myRating': 'like',
+                    'part': 'snippet,contentDetails,topicDetails,statistics',
+                    'maxResults': '50',
+                    'pageToken': pageToken,
+                }
+            });
+    
+            request.execute(function(response) {
+                resolve(response);
+            });
+        } else {
+            axios({
+                method: 'GET',
+                params: {
+                    'myRating': 'like',
+                    'part': 'snippet,contentDetails,topicDetails,statistics',
+                    'maxResults': '50',
+                    'pageToken': pageToken,
+                },
+                url: `${config.googleServices.services.youtube.URL}/videos`
+            }).then((response) => {
+                resolve(response.data);
+            })
+        }
+    })    
+}
 
 export default async function loadLikedVideos(dataList = [], pageToken) {
     const getSome = async (dataList, pageToken, resolve) => {
-        const { data } = await getLikedVideos(pageToken)
+        const data = await getLikedVideos(pageToken)
+        const result = dataList.concat([data])
         const { nextPageToken } = data
-        
         if (nextPageToken && dataList.length < pageLimit) {
-            getSome(dataList.concat([data]), nextPageToken, resolve)
+            getSome(result, nextPageToken, resolve)
         } else {
-            resolve(categoriseVideos(dataList))
+            resolve(categoriseVideos(result))
         }
     }
 
