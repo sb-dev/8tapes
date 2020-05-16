@@ -34,7 +34,7 @@ export default class GoogleAuth {
         const user = this.getCurrentUser();
         
         if(user) {
-            const { Zi: { access_token } } = this.getCurrentUser();
+            const { access_token } = user.reloadAuthResponse();
             return access_token;
         }
         
