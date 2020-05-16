@@ -38,10 +38,8 @@ export default class GoogleAuth {
 
             const signInAttempt = (attempts = 0) => {
                 if(this.auth) {
-                    this.auth.signIn().then(() => {
-                        this.youtubeClient = gapi.client
-                        resolve(this.youtubeClient)
-                    })
+                    this.youtubeClient = gapi.client
+                    resolve(this.youtubeClient)
                 } else {
                     if(attempts === 10) {
                         throw new Error('gapi initialisation failed...')
