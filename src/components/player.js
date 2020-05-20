@@ -57,7 +57,7 @@ export default function Player(props) {
 
     function formatCurrentTime(value) {
         if(!value) return null
-        return formatTime(value)
+        return formatTime(props.selectedItem.duration, value)
     }
 
     function trackCurrentTime() {

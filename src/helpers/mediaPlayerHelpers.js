@@ -10,8 +10,8 @@ export function getTime(duration, progress) {
     return (progress * total) / 100
 }
 
-export function formatTime(progress) {
-    const time = getTime(progress)
+export function formatTime(duration, progress) {
+    const time = getTime(duration, progress)
     const totalSeconds = time % 3600
     const minutes = Math.floor( totalSeconds / 60)
     const seconds = parseInt(totalSeconds % 60)
