@@ -9,7 +9,7 @@ import LazyLoad from 'react-lazyload';
 import Player from '../components/player';
 import { isMobile } from 'react-device-detect';
 import loadLikedVideos from '../helpers/youtubeHelpers'
-import pizzaz from './pizzaz.gif';
+import pizzaz from '../assets/pizzaz.gif';
 
 export default function Browse(props) {
   const [videos, setVideos] = useState([]);

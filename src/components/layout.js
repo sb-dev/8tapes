@@ -3,7 +3,7 @@ import './layout.css';
 import { Layout as AntdLayout } from 'antd';
 import GoogleAuth from '../helpers/googleAuth';
 import React from "react";
-import logo from './logo.svg';
+import logo from '../assets/tape.svg';
 import { withRouter } from "react-router-dom";
 
 const { Header, Content } = AntdLayout;

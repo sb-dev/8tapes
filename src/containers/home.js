@@ -5,7 +5,7 @@ import GoogleAuth from '../helpers/googleAuth';
 import { Link } from 'react-router-dom';
 import React from "react";
 import config from '../config';
-import tape from './tape.svg';
+import tape from '../assets/tape.svg';
 
 export default function Home(props) {
 
