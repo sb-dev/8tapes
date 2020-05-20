@@ -1,3 +1,5 @@
+@import '../theme/utils.scss';
+
 .player {
     display: flex;
     position: fixed;
@@ -90,7 +92,7 @@
 }
 
 .active .play-button svg {
-    fill: #EB392A;
+    fill: #70CCAF;
 }
 
 .play-button svg {
@@ -110,4 +112,65 @@
 
 .now-playing-wrapper .details:hover .youtube-button svg{
     fill: #f00
+}
+
+.ant-slider {
+    .ant-slider-track {
+        background-color: $base-3;
+    }
+
+    .ant-slider-handle {
+        border: solid 2px $base-3;
+
+        &.ant-slider-handle-click-focused {
+            box-shadow: 0 0 0 5px $base-5;
+        }
+    }
+
+    &:hover {
+        .ant-slider-track {
+            background-color: $base-2;
+        }
+
+        .ant-slider-handle {
+            border: solid 2px $base-2;
+        }
+    }
+}
+
+.volume {
+    .volume-slider {
+        display: inline-flex;
+        width: 120px;
+        vertical-align: middle;
+        visibility: hidden;
+        opacity:0;
+        transition:visibility 0.3s linear,opacity 0.3s linear;
+    }
+
+    i {
+        display: inline-flex;
+        vertical-align: middle;
+    }
+
+    &:hover {
+        .volume-slider {
+            display: inline-flex;
+            visibility:visible;
+            opacity:1;
+        } 
+    }
+}
+
+.progress-slider {
+    display: none;
+    position: fixed;
+    bottom: 42px;
+    left: 84px;
+    right: 0;
+    z-index: 4;
+}
+
+.player.active .progress-slider {
+    display: block;
 }
