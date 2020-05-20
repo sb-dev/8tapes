@@ -1,9 +1,14 @@
 import './player.scss'
 
+import { Icon, Slider } from 'antd';
 import React, { useEffect, useState } from "react";
+import { formatTime, getProgress, getTime } from '../helpers/mediaPlayerHelpers'
 
-import { Icon } from 'antd';
 import YouTube from 'react-youtube';
+import moment from 'moment'
+import momentDurationFormatSetup from 'moment-duration-format'
+
+momentDurationFormatSetup(moment);
 
 /**
  * Youtube player
@@ -15,13 +20,57 @@ import YouTube from 'react-youtube';
 export default function Player(props) {
     const [player, setPlayer] = useState(null);
     const [state, setState] = useState(null);
+    const [volume, setVolume] = useState(0);
+    const [currentTimeProgess, setCurrentTimeProgess] = useState(0);
+    const [currentTimeInterval, setCurrentTimeInterval] = useState(0);
 
-    function togglePlay() {
+    useEffect(() => {
+        return () => { stopTrackingTime() }
+    }, [] );
+
+    function handleTogglePlay() {
         if (state === 'playing') {
             player.pauseVideo()
         } else if (state === 'paused' || state === 'ended') {
             player.playVideo()
         }
+    }
+
+    function handlePreviousVideo() {
+        player.previousVideo()
+    }
+
+    function handleNextVideo() {
+        player.nextVideo()
+    }
+
+    function handleVolumeChange(value) {
+        setVolume(value)
+        player.setVolume(value)
+    }
+
+    function handleProgressChange(value) {
+        const time = getTime(props.selectedItem.duration, value)
+        setCurrentTimeProgess(value)
+        player.seekTo(time)
+    }
+
+    function formatCurrentTime(value) {
+        if(!value) return null
+        return formatTime(value)
+    }
+
+    function trackCurrentTime() {
+        const interval = setInterval(() => {
+            const progress = getProgress(props.selectedItem.duration, player.getCurrentTime())
+            setCurrentTimeProgess(progress)
+        }, 500)
+
+        setCurrentTimeInterval(interval)
+    }
+
+    function stopTrackingTime() {
+        clearInterval(currentTimeInterval);
     }
 
     function openVideoInYoutube() {
@@ -32,20 +81,26 @@ export default function Player(props) {
     }
     
     function _onReady(event) {
-        console.log(event.target)
+        console.log("_onReady")
         setPlayer(event.target)
+        event.target.loadPlaylist([props.selectedItem.id, 'VHUS9j0wna8'])
     }
 
     function _onStateChange({data}) {
         switch(data) {
             case 0:
                 setState('ended')
+                stopTrackingTime()
                 break
             case 1:
                 setState('playing')
+                stopTrackingTime()
+                setVolume(player.getVolume())
+                trackCurrentTime()
                 break
             case 2:
                 setState('paused')
+                stopTrackingTime()
                 break
             case 3:
                 setState('buffering')
@@ -63,10 +118,10 @@ export default function Player(props) {
             width: '90px',
             height: '60px',
             playerVars: {
-            autoplay: 1,
-            controls: 0
+                autoplay: 1,
+                controls: 0
             }
-        };
+        }
         
         return (
             <>
@@ -95,20 +150,30 @@ export default function Player(props) {
       
     return (
         <div className={`player ${props.selectedItem ? 'active' : ''}`}>
+            <Slider 
+                defaultValue={0} 
+                value={currentTimeProgess} 
+                className="progress-slider" 
+                step={0.001} 
+                onChange={handleProgressChange} 
+                tipFormatter={formatCurrentTime} />
             <div className="left">
                 {props.selectedItem ? renderSelectedVideo() : ''}
             </div>
             <div className="center">
-                <Icon className="button" type="step-backward" />
+                <Icon className="button" type="step-backward" onClick={handlePreviousVideo}/>
                 <Icon 
                     className="play-button"
-                    onClick={togglePlay} 
+                    onClick={handleTogglePlay} 
                     type={state === 'playing' ? "pause-circle" : "play-circle"} 
                     theme="filled" />
-                <Icon className="button" type="step-forward" />
+                <Icon className="button" type="step-forward" onClick={handleNextVideo} />
             </div>
             <div className="right">
-                <Icon className="button" type="sound" theme="filled" />
+                <div className="volume">
+                    <Slider value={volume} className="volume-slider" onChange={handleVolumeChange} />
+                    <Icon className="button" type="sound" theme="filled" />
+                </div>
             </div>
         </div>
     )
