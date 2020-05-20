@@ -2,7 +2,7 @@ const dev = {
   googleServices: {
     API_KEY: process.env.REACT_APP_GOOGLE_API_KEY,
     CLIENT_ID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
-    ENABLE_AUTH: true,
+    ENABLE_AUTH: false,
     services: {
       youtube: {
         URL: 'http://localhost:3001',
