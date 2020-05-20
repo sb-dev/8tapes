@@ -1,4 +1,4 @@
-import './layout.css';
+import './layout.scss';
 
 import { Layout as AntdLayout } from 'antd';
 import GoogleAuth from '../helpers/googleAuth';

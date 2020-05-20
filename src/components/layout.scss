@@ -1,0 +1,131 @@
+.ant-layout-header {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 24px
+}
+
+.ant-layout-content {
+  padding: 24px;
+  padding-bottom: 84px;
+  padding-top: 88px;
+
+  &.padded {
+    text-align: left;
+    padding-top: 24px;
+    padding-bottom: 24px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.header-logo {
+  font-family: "Pacifico";
+  display: inline-block;
+  margin-right: 24px;
+  margin-bottom: 0;
+
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+
+  img {
+    height: 40px;
+    width: 40px;
+  }
+
+  a {
+    color: black;
+  }
+}
+
+.inner-header {
+  display: flex;
+  height: 68px;
+  padding: 0 20px;
+}
+
+ul.menu {
+  position: relative;
+  display: flex;
+  height: 100%;
+  list-style: none;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    zoom: 1;
+    vertical-align: middle;
+    margin-left: 20px;
+
+    span {
+      padding: 0.5em;
+      color: rgba(0, 0, 0, 0.65);
+      cursor: pointer;
+
+      &:hover {
+        border-radius: 4px;
+        background-color: #eee;
+      }
+    }
+  }
+}
+
+.secondary-navigation {
+  display: flex;
+  flex-grow: 1;
+  justify-content: flex-end;
+  height: 100%;
+
+  .nav-item {
+    margin-left: 20px;
+    cursor: pointer;
+
+    span {
+      padding: 0.5em;
+      color: rgba(0, 0, 0, 0.65);
+      cursor: pointer;
+
+      &:hover {
+        border-radius: 4px;
+        background-color: #eee;
+      }
+    }
+
+    svg {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .ant-layout-content.padded {
+    width: auto;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .ant-layout-content.padded {
+    width: 750px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .ant-layout-content.padded {
+    width: 970px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .ant-layout-content.padded {
+    width: 1170px;
+  }
+}
