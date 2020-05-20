@@ -1,4 +1,4 @@
-Source from the 8tapes community, curated for you: <br />
+Sourced from the 8tapes community, curated for you: <br />
 [8tapes.com](https://8tapes.com/)
 
 # Quick start
