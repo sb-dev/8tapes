@@ -1,6 +1,6 @@
 import './layout.scss';
 
-import { Layout as AntdLayout } from 'antd';
+import { FaUserCircle } from 'react-icons/fa';
 import GoogleAuth from '../helpers/googleAuth';
 import React from "react";
 import logo from '../assets/tape.svg';
@@ -17,7 +17,14 @@ function Layout(props) {
   return (
     <AntdLayout>
         <Header>
-            <div onClick={handleSignOut}><img src={logo} className="header-logo" alt="logo" /></div>
+        <div className="inner-header">
+          <div className="header-logo">
+            <img src={logo} alt="8tapes" />
+          </div>
+          <div className="secondary-navigation">
+            <div className="nav-item"><FaUserCircle /></div>
+          </div>
+        </div>
         </Header>
         <Content className={props.contentClassName}>
             {props.children}
