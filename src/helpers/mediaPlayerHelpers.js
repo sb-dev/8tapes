@@ -1,6 +1,13 @@
 import moment from 'moment'
+import momentDurationFormatSetup from 'moment-duration-format'
+
+momentDurationFormatSetup(moment);
 
 export function getProgress(duration, currentTime) {
+    if(currentTime === 0) {
+        return 0    
+    }
+    
     const total = moment.duration(duration).asSeconds()
     return (currentTime * 100) / total
 }

@@ -23,6 +23,8 @@
     position: relative;
     float: left;
     margin-right: 10px;
+    width: 90px;
+    height: 60px;
 }
 
 .player .left .now-playing-wrapper {
@@ -63,8 +65,8 @@
     align-items: center;
 }
 
-.player .right .button:last-child {
-    margin-right: 32px;
+.player .right {
+    padding-right: 32px;
 }
 
 .player .button {

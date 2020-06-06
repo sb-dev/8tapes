@@ -1,164 +1,122 @@
 import './player.scss'
 
 import { Icon, Slider } from 'antd';
-import React, { useEffect, useState } from "react";
-import { formatTime, getProgress, getTime } from '../helpers/mediaPlayerHelpers'
+import MediaPlayer, { CastPlayer, MediaPlayerState } from '../helpers/MediaPlayer';
+import React, { useState } from "react";
+import { formatTime, getTime } from '../helpers/mediaPlayerHelpers'
 
-import YouTube from 'react-youtube';
-import moment from 'moment'
-import momentDurationFormatSetup from 'moment-duration-format'
+import { FaChromecast } from 'react-icons/fa'
 
-momentDurationFormatSetup(moment);
-
-/**
- * Youtube player
- * 
- * https://developers.google.com/youtube/iframe_api_reference#top_of_page
- * 
- * @param {*} props 
- */
-export default function Player(props) {
-    const [player, setPlayer] = useState(null);
-    const [state, setState] = useState(null);
+export default function Player({selectedItems, isCastAvailable}) {    
+    const [state, setState] = useState(selectedItems ? MediaPlayerState.UNSTARTED : null);
+    const [mediaPlayer, setMediaPlayer] = useState(null);
     const [volume, setVolume] = useState(0);
     const [currentTimeProgess, setCurrentTimeProgess] = useState(0);
-    const [currentTimeInterval, setCurrentTimeInterval] = useState(0);
+    const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
 
-    useEffect(() => {
-        return () => { stopTrackingTime() }
-    }, [] );
+    async function handleCast() {
+        await CastPlayer.requestCastSession()
+    }
 
     function handleTogglePlay() {
-        if (state === 'playing') {
-            player.pauseVideo()
-        } else if (state === 'paused' || state === 'ended') {
-            player.playVideo()
+        if (state === MediaPlayerState.PLAYING) {
+            mediaPlayer.pause()
+        } else if (state === MediaPlayerState.PAUSED || state === MediaPlayerState.ENDED) {
+            mediaPlayer.play()
         }
     }
 
     function handlePreviousVideo() {
-        player.previousVideo()
+        const updatedIndex = currentMediaIndex - 1
+        selectedItems && selectedItems[updatedIndex] && setCurrentMediaIndex(updatedIndex)
     }
 
     function handleNextVideo() {
-        player.nextVideo()
+        const updatedIndex = currentMediaIndex + 1
+        selectedItems && selectedItems[updatedIndex] && setCurrentMediaIndex(updatedIndex)
     }
 
-    function handleVolumeChange(value) {
+    function handleVolumeSlide(value) {
         setVolume(value)
-        player.setVolume(value)
+        mediaPlayer.setVolume(value)
     }
 
-    function handleProgressChange(value) {
-        const time = getTime(props.selectedItem.duration, value)
+    function handleProgressSlide(value) {
+        if(!selectedItems) {
+            return
+        }
+
+        const time = getTime(selectedItems[currentMediaIndex].duration, value)
         setCurrentTimeProgess(value)
-        player.seekTo(time)
+        mediaPlayer.seekTo(time)
     }
 
     function formatCurrentTime(value) {
         if(!value) return null
-        return formatTime(props.selectedItem.duration, value)
-    }
-
-    function trackCurrentTime() {
-        const interval = setInterval(() => {
-            const progress = getProgress(props.selectedItem.duration, player.getCurrentTime())
-            setCurrentTimeProgess(progress)
-        }, 500)
-
-        setCurrentTimeInterval(interval)
-    }
-
-    function stopTrackingTime() {
-        clearInterval(currentTimeInterval);
+        return formatTime(selectedItems[currentMediaIndex].duration, value)
     }
 
     function openVideoInYoutube() {
-        if (state === 'playing') {
-            player.pauseVideo()
+        if (state === MediaPlayerState.PLAYING) {
+            mediaPlayer.pauseVideo()
         }
-        window.open(props.selectedItem.url, "_blank")
-    }
-    
-    function _onReady(event) {
-        console.log("_onReady")
-        setPlayer(event.target)
-        event.target.loadPlaylist([props.selectedItem.id, 'VHUS9j0wna8'])
+        selectedItems && window.open(selectedItems[currentMediaIndex].url, "_blank")
     }
 
-    function _onStateChange({data}) {
-        switch(data) {
-            case 0:
-                setState('ended')
-                stopTrackingTime()
-                break
-            case 1:
-                setState('playing')
-                stopTrackingTime()
-                setVolume(player.getVolume())
-                trackCurrentTime()
-                break
-            case 2:
-                setState('paused')
-                stopTrackingTime()
-                break
-            case 3:
-                setState('buffering')
-                break
-            case 5:
-                setState('video-cued')
-                break
-            default:
-                setState('unstarted')
-          }
+    function _onReady(event) {
+        setMediaPlayer(event.target)
     }
-    
-    function renderSelectedVideo() {
-        const opts = {
-            width: '90px',
-            height: '60px',
-            playerVars: {
-                autoplay: 1,
-                controls: 0
-            }
-        }
-        
+
+    function handleStateChange({data}) {
+        setState(data)
+    }
+
+    function handleProgressChange({data}) {
+        setCurrentTimeProgess(data)
+    }
+
+    function handleVolumeChange({data}) {
+        setVolume(data)
+    }
+
+    function renderPlayer() {
         return (
             <>
-                <YouTube
-                    className="image-wrapper"
-                    videoId={props.selectedItem.id}
-                    opts={opts}
+                <MediaPlayer 
                     onReady={_onReady} 
-                    onStateChange={_onStateChange} />
-                <div className="now-playing-wrapper">
+                    onStateChange={handleStateChange}
+                    onProgressChange={handleProgressChange} 
+                    onVolumeChange={handleVolumeChange} 
+                    target={selectedItems ? selectedItems[currentMediaIndex] : null} />
+                    
+                {selectedItems && <div className="now-playing-wrapper">
                     <div className="now-playing-content">
-                    <div className="title">{props.selectedItem.title}</div>
+                    <div className="title">{selectedItems[currentMediaIndex].title}</div>
                     <div className="details pointer" onClick={openVideoInYoutube}>
                         <Icon 
                             className="youtube-button" 
                             type="youtube" 
                             theme="filled" />
                         &nbsp;
-                        {props.selectedItem.channelTitle}
+                        {selectedItems[currentMediaIndex].channelTitle}
                     </div>
                     </div>
-                </div>
+                </div>}
             </>
         )
     }
       
     return (
-        <div className={`player ${props.selectedItem ? 'active' : ''}`}>
+        <div className={`player ${selectedItems ? 'active' : ''} ${state}`}>
             <Slider 
                 defaultValue={0} 
                 value={currentTimeProgess} 
                 className="progress-slider" 
                 step={0.001} 
-                onChange={handleProgressChange} 
+                onChange={handleProgressSlide} 
                 tipFormatter={formatCurrentTime} />
             <div className="left">
-                {props.selectedItem ? renderSelectedVideo() : ''}
+                { renderPlayer() }
             </div>
             <div className="center">
                 <Icon className="button" type="step-backward" onClick={handlePreviousVideo}/>
@@ -171,9 +129,13 @@ export default function Player(props) {
             </div>
             <div className="right">
                 <div className="volume">
-                    <Slider value={volume} className="volume-slider" onChange={handleVolumeChange} />
+                    <Slider 
+                        value={volume} 
+                        className="volume-slider" 
+                        onChange={handleVolumeSlide} />
                     <Icon className="button" type="sound" theme="filled" />
                 </div>
+                { isCastAvailable && <i className="cast button"><FaChromecast onClick={handleCast} /></i> }
             </div>
         </div>
     )
