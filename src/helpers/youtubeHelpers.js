@@ -26,7 +26,8 @@ const categoriseVideos = (dataList) => {
                             channelTitle: item.snippet.channelTitle,
                             thumbnail: item.snippet.thumbnails.standard ? item.snippet.thumbnails.standard: item.snippet.thumbnails.default,
                             duration: item.contentDetails.duration,
-                            url: `https://www.youtube.com/watch?v=${item.id}`
+                            url: `https://www.youtube.com/watch?v=${item.id}`,
+                            source: 'youtube'
                         })
 
                         processedItems[item.id] = true;
