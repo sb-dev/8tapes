@@ -4,8 +4,8 @@
 # “command” is your build command.
 
 [build]
-  base    = ""
-  publish = "build"
+  base    = "8tapes-web-client"
+  publish = "8tapes-web-client/build"
   command = "APP_ENV=prod npm run build"
 
 # Production context: All deploys to the main

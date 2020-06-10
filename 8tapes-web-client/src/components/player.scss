@@ -1,0 +1,178 @@
+@import '../theme/utils.scss';
+
+.player {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,.6);
+}
+
+.player.active {
+    color: rgb(33, 33, 33);
+}
+
+.player .left {
+    flex: 1;
+    display: flex;
+}
+
+.player .left .image-wrapper {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    width: 90px;
+    height: 60px;
+}
+
+.player .left .now-playing-wrapper {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.player .left .now-playing-content {
+    flex: 1;
+    min-width: 0px;
+    text-align: left;
+}
+
+.player .left .now-playing-content .title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.player .left .now-playing-content .details {
+    color: #616161;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.player .center {
+    display: flex;
+    align-items: center;
+}
+
+.player .right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.player .right {
+    padding-right: 32px;
+}
+
+.player .button {
+    display: inline-block;
+    position: relative;
+    padding: 8px;
+    outline: none;
+    cursor: pointer;
+    z-index: 0;
+    line-height: 1;
+    width: 40px;
+    height: 40px;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box !important;
+}
+
+.player .button svg {
+    width: 24px;
+    height: 24px;
+}
+
+.play-button {
+    padding: 6px;
+}
+
+.active .play-button svg {
+    fill: #70CCAF;
+}
+
+.play-button svg {
+    height: 48px;
+    width: 48px;
+}
+
+.youtube-button {
+    position: relative;
+    top: 2px;
+}
+
+.youtube-button svg {
+    height: 16px;
+    width: 16px;   
+}
+
+.now-playing-wrapper .details:hover .youtube-button svg{
+    fill: #f00
+}
+
+.ant-slider {
+    .ant-slider-track {
+        background-color: $base-3;
+    }
+
+    .ant-slider-handle {
+        border: solid 2px $base-3;
+
+        &.ant-slider-handle-click-focused {
+            box-shadow: 0 0 0 5px $base-5;
+        }
+    }
+
+    &:hover {
+        .ant-slider-track {
+            background-color: $base-2;
+        }
+
+        .ant-slider-handle {
+            border: solid 2px $base-2;
+        }
+    }
+}
+
+.volume {
+    .volume-slider {
+        display: inline-flex;
+        width: 120px;
+        vertical-align: middle;
+        visibility: hidden;
+        opacity:0;
+        transition:visibility 0.3s linear,opacity 0.3s linear;
+    }
+
+    i {
+        display: inline-flex;
+        vertical-align: middle;
+    }
+
+    &:hover {
+        .volume-slider {
+            display: inline-flex;
+            visibility:visible;
+            opacity:1;
+        } 
+    }
+}
+
+.progress-slider {
+    display: none;
+    position: fixed;
+    bottom: 42px;
+    left: 84px;
+    right: 0;
+    z-index: 4;
+}
+
+.player.active .progress-slider {
+    display: block;
+}
