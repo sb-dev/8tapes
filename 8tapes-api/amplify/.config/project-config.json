@@ -1,0 +1,17 @@
+{
+    "projectName": "8tapes-api",
+    "version": "3.0",
+    "frontend": "javascript",
+    "javascript": {
+        "framework": "react",
+        "config": {
+            "SourceDir": "../8tapes-web-client/src",
+            "DistributionDir": "../8tapes-web-client/build",
+            "BuildCommand": "",
+            "StartCommand": ""
+        }
+    },
+    "providers": [
+        "awscloudformation"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "providers": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-8tapes-api-dev-80509-authRole",
+            "UnauthRoleArn": "arn:aws:iam::997146481516:role/amplify-8tapes-api-dev-80509-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::997146481516:role/amplify-8tapes-api-dev-80509-authRole",
+            "Region": "eu-west-2",
+            "DeploymentBucketName": "amplify-8tapes-api-dev-80509-deployment",
+            "UnauthRoleName": "amplify-8tapes-api-dev-80509-unauthRole",
+            "StackName": "amplify-8tapes-api-dev-80509",
+            "StackId": "arn:aws:cloudformation:eu-west-2:997146481516:stack/amplify-8tapes-api-dev-80509/c3f4b3f0-aae8-11ea-904f-0a7f7081acf8",
+            "AmplifyAppId": "d2lxhyufpy99y3"
+        }
+    }
+}
