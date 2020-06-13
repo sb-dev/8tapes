@@ -1,12 +1,12 @@
 {
-    "projectName": "8tapes-api",
+    "projectName": "8tapesapi",
     "version": "3.0",
     "frontend": "javascript",
     "javascript": {
         "framework": "react",
         "config": {
-            "SourceDir": "../8tapes-web-client/src",
-            "DistributionDir": "../8tapes-web-client/build",
+            "SourceDir": "src",
+            "DistributionDir": "dist",
             "BuildCommand": "",
             "StartCommand": ""
         }
