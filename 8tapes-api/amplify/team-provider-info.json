@@ -10,6 +10,11 @@
             "StackName": "amplify-8tapesapi-dev-184346",
             "StackId": "arn:aws:cloudformation:eu-west-2:997146481516:stack/amplify-8tapesapi-dev-184346/463f9e00-acd4-11ea-b9a2-0617023ccf6e",
             "AmplifyAppId": "d2u0jn1mp3msmq"
+        },
+        "categories": {
+            "auth": {
+                "8tapesapi81fc17f6": {}
+            }
         }
     }
 }

@@ -1,15 +1,38 @@
 {
-    "providers": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-8tapesapi-dev-184346-authRole",
-            "UnauthRoleArn": "arn:aws:iam::997146481516:role/amplify-8tapesapi-dev-184346-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::997146481516:role/amplify-8tapesapi-dev-184346-authRole",
-            "Region": "eu-west-2",
-            "DeploymentBucketName": "amplify-8tapesapi-dev-184346-deployment",
-            "UnauthRoleName": "amplify-8tapesapi-dev-184346-unauthRole",
-            "StackName": "amplify-8tapesapi-dev-184346",
-            "StackId": "arn:aws:cloudformation:eu-west-2:997146481516:stack/amplify-8tapesapi-dev-184346/463f9e00-acd4-11ea-b9a2-0617023ccf6e",
-            "AmplifyAppId": "d2u0jn1mp3msmq"
-        }
-    }
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "amplify-8tapesapi-dev-184346-authRole",
+			"UnauthRoleArn": "arn:aws:iam::997146481516:role/amplify-8tapesapi-dev-184346-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::997146481516:role/amplify-8tapesapi-dev-184346-authRole",
+			"Region": "eu-west-2",
+			"DeploymentBucketName": "amplify-8tapesapi-dev-184346-deployment",
+			"UnauthRoleName": "amplify-8tapesapi-dev-184346-unauthRole",
+			"StackName": "amplify-8tapesapi-dev-184346",
+			"StackId": "arn:aws:cloudformation:eu-west-2:997146481516:stack/amplify-8tapesapi-dev-184346/463f9e00-acd4-11ea-b9a2-0617023ccf6e",
+			"AmplifyAppId": "d2u0jn1mp3msmq"
+		}
+	},
+	"auth": {
+		"8tapesapi81fc17f6": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false,
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/amplify-8tapesapi-dev-184346-deployment/amplify-cfn-templates/auth/8tapesapi81fc17f6-cloudformation-template.yml",
+				"logicalId": "auth8tapesapi81fc17f6"
+			},
+			"lastPushTimeStamp": "2020-06-13T07:10:27.873Z",
+			"output": {
+				"AppClientSecret": "1ar2hlq0nd2sovc5v8irctdtst9lm68e6r6kj65n2o33eonlcd32",
+				"UserPoolId": "eu-west-2_nPqvvRhd9",
+				"AppClientIDWeb": "1trv2mqmkpq6co6bnh8pc9b362",
+				"AppClientID": "2flgu78k79uv1000s24ti0m6dg",
+				"IdentityPoolId": "eu-west-2:9a569beb-166d-4603-a6d4-8ebbfab9b55d",
+				"IdentityPoolName": "8tapesapi81fc17f6_identitypool_81fc17f6__dev",
+				"UserPoolName": "8tapesapi81fc17f6_userpool_81fc17f6"
+			},
+			"lastPushDirHash": "SAE6ZssEPB6oH5WJnn9QxK2rPjo="
+		}
+	}
 }
