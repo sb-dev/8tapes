@@ -116,6 +116,51 @@
 				}
 			}
 		},
+		"authuserPoolGroups": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-8tapesapi-dev-184346-deployment/amplify-cfn-templates/auth/template.json",
+				"Parameters": {
+					"AuthRoleArn": {
+						"Fn::GetAtt": [
+							"AuthRole",
+							"Arn"
+						]
+					},
+					"UnauthRoleArn": {
+						"Fn::GetAtt": [
+							"UnauthRole",
+							"Arn"
+						]
+					},
+					"auth8tapesapi81fc17f6UserPoolId": {
+						"Fn::GetAtt": [
+							"auth8tapesapi81fc17f6",
+							"Outputs.UserPoolId"
+						]
+					},
+					"auth8tapesapi81fc17f6AppClientIDWeb": {
+						"Fn::GetAtt": [
+							"auth8tapesapi81fc17f6",
+							"Outputs.AppClientIDWeb"
+						]
+					},
+					"auth8tapesapi81fc17f6AppClientID": {
+						"Fn::GetAtt": [
+							"auth8tapesapi81fc17f6",
+							"Outputs.AppClientID"
+						]
+					},
+					"auth8tapesapi81fc17f6IdentityPoolId": {
+						"Fn::GetAtt": [
+							"auth8tapesapi81fc17f6",
+							"Outputs.IdentityPoolId"
+						]
+					},
+					"env": "dev"
+				}
+			}
+		},
 		"UpdateRolesWithIDPFunction": {
 			"DependsOn": [
 				"AuthRole",
