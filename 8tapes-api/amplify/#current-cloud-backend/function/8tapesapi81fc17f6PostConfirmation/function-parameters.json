@@ -1,0 +1,16 @@
+{
+    "trigger": true,
+    "modules": [
+        "add-to-group"
+    ],
+    "parentResource": "8tapesapi81fc17f6",
+    "functionName": "8tapesapi81fc17f6PostConfirmation",
+    "resourceName": "8tapesapi81fc17f6PostConfirmation",
+    "parentStack": "auth",
+    "triggerEnvs": [],
+    "triggerDir": "/Users/samir/.nvm/versions/node/v13.2.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PostConfirmation",
+    "triggerTemplate": "PostConfirmation.json.ejs",
+    "roleName": "8tapesapi81fc17f6PostConfirmation",
+    "skipEdit": true,
+    "GROUP": "user"
+}

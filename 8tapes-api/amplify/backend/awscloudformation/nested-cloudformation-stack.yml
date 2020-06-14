@@ -74,7 +74,7 @@
 				"TemplateURL": "https://s3.amazonaws.com/amplify-8tapesapi-dev-184346-deployment/amplify-cfn-templates/auth/8tapesapi81fc17f6-cloudformation-template.yml",
 				"Parameters": {
 					"identityPoolName": "8tapesapi81fc17f6_identitypool_81fc17f6",
-					"allowUnauthenticatedIdentities": false,
+					"allowUnauthenticatedIdentities": true,
 					"resourceNameTruncated": "8tapes81fc17f6",
 					"userPoolName": "8tapesapi81fc17f6_userpool_81fc17f6",
 					"autoVerifiedAttributes": "email",
@@ -109,9 +109,30 @@
 							"Arn"
 						]
 					},
-					"useDefault": "default",
-					"userPoolGroupList": "",
-					"dependsOn": "",
+					"useDefault": "manual",
+					"userPoolGroupList": "admin,curator,premium,user",
+					"dependsOn": "[object Object]",
+					"thirdPartyAuth": false,
+					"userPoolGroups": false,
+					"adminQueries": false,
+					"triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
+					"hostedUI": false,
+					"parentStack": {
+						"Ref": "AWS::StackId"
+					},
+					"permissions": "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}",
+					"function8tapesapi81fc17f6PostConfirmationArn": {
+						"Fn::GetAtt": [
+							"function8tapesapi81fc17f6PostConfirmation",
+							"Outputs.Arn"
+						]
+					},
+					"function8tapesapi81fc17f6PostConfirmationName": {
+						"Fn::GetAtt": [
+							"function8tapesapi81fc17f6PostConfirmation",
+							"Outputs.Name"
+						]
+					},
 					"env": "dev"
 				}
 			}
@@ -157,6 +178,18 @@
 							"Outputs.IdentityPoolId"
 						]
 					},
+					"env": "dev"
+				}
+			}
+		},
+		"function8tapesapi81fc17f6PostConfirmation": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/amplify-8tapesapi-dev-184346-deployment/amplify-cfn-templates/function/8tapesapi81fc17f6PostConfirmation-cloudformation-template.json",
+				"Parameters": {
+					"modules": "add-to-group",
+					"resourceName": "8tapesapi81fc17f6PostConfirmation",
+					"GROUP": "user",
 					"env": "dev"
 				}
 			}

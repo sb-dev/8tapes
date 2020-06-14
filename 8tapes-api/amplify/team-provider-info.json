@@ -14,6 +14,11 @@
         "categories": {
             "auth": {
                 "8tapesapi81fc17f6": {}
+            },
+            "function": {
+                "8tapesapi81fc17f6PostConfirmation": {
+                    "GROUP": "user"
+                }
             }
         }
     }

@@ -16,6 +16,8 @@
 * premiumGroupRole *AWS::IAM::Role Sat Jun 13 2020 08:45:25 GMT+0100 (British Summer Time)*
 * adminGroupRole *AWS::IAM::Role Sat Jun 13 2020 08:45:25 GMT+0100 (British Summer Time)*
 * LambdaExecutionRole *AWS::IAM::Role Sat Jun 13 2020 08:45:29 GMT+0100 (British Summer Time)*
+* LambdaExecutionRole *AWS::IAM::Role Sun Jun 14 2020 08:39:08 GMT+0100 (British Summer Time)*
+* 8tapesapi81fc17f6PostConfirmationAddToGroupCognito *AWS::IAM::Policy Sun Jun 14 2020 08:40:05 GMT+0100 (British Summer Time)*
 
 **S3**:
 * DeploymentBucket *AWS::S3::Bucket Fri Jun 12 2020 18:44:15 GMT+0100 (British Summer Time)*
@@ -37,3 +39,5 @@
 * UpdateRolesWithIDPFunction *AWS::Lambda::Function Sat Jun 13 2020 08:09:58 GMT+0100 (British Summer Time)*
 * UpdateRolesWithIDPFunctionOutputs *Custom::LambdaCallout Sat Jun 13 2020 08:10:04 GMT+0100 (British Summer Time)*
 * RoleMapFunction *AWS::Lambda::Function Sat Jun 13 2020 08:45:33 GMT+0100 (British Summer Time)*
+* LambdaFunction *AWS::Lambda::Function Sun Jun 14 2020 08:39:12 GMT+0100 (British Summer Time)*
+* UserPoolPostConfirmationLambdaInvokePermission *AWS::Lambda::Permission Sun Jun 14 2020 08:40:01 GMT+0100 (British Summer Time)*

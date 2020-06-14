@@ -9,6 +9,18 @@ Parameters:
     Type: String
   
   
+  
+  
+  function8tapesapi81fc17f6PostConfirmationArn: 
+    Type: String
+    Default: function8tapesapi81fc17f6PostConfirmationArn
+  
+  function8tapesapi81fc17f6PostConfirmationName: 
+    Type: String
+    Default: function8tapesapi81fc17f6PostConfirmationName
+  
+  
+  
 
     
   identityPoolName:
@@ -88,10 +100,31 @@ Parameters:
                       
   userPoolGroupList:
     Type: CommaDelimitedList
-                          
+              
   dependsOn:
     Type: CommaDelimitedList
-    
+        
+  thirdPartyAuth:
+    Type: String
+              
+  userPoolGroups:
+    Type: String
+              
+  adminQueries:
+    Type: String
+            
+  triggers:
+    Type: String
+                
+  hostedUI:
+    Type: String
+                  
+  parentStack:
+    Type: String
+                
+  permissions:
+    Type: CommaDelimitedList
+                
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -145,6 +178,19 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+          PostConfirmation: !Ref function8tapesapi81fc17f6PostConfirmationArn
+        
+        
+        
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -166,6 +212,59 @@ Resources:
         SnsCallerArn: !GetAtt SNSRole.Arn
         ExternalId: 8tapes81fc17f6_role_external_id
     
+  
+    
+    
+  
+    
+  
+  UserPoolPostConfirmationLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref function8tapesapi81fc17f6PostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
+    
+  
+  
+   
+    
+  # Updating lambda role with permissions to Cognito
+  
+  
+  8tapesapi81fc17f6PostConfirmationAddToGroupCognito:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: 8tapesapi81fc17f6PostConfirmationAddToGroupCognito
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            
+              - cognito-idp:AdminAddUserToGroup
+            
+              - cognito-idp:GetGroup
+            
+              - cognito-idp:CreateGroup
+            
+            
+            
+            Resource: !GetAtt
+            
+              - UserPool
+            
+              - Arn
+            
+            
+            
+
+      Roles:
+        - !Join ['',["8tapesapi81fc17f6PostConfirmation", '-', !Ref env]]
+  
+  
   
   UserPoolClientWeb:
   # Created provide application access to user pool
