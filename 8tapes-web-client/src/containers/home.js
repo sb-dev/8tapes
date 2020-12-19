@@ -16,9 +16,9 @@ export default function Home(props) {
   }
 
   async function browse() {
-    // if(config.googleServices.ENABLE_AUTH) {
-    //   await GoogleAuth.signIn();
-    // }
+    if(config.googleServices.ENABLE_AUTH) {
+      await GoogleAuth.signIn();
+    }
     
     props.history.push("/browse");
   }

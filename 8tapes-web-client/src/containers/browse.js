@@ -47,7 +47,7 @@ export default function Browse(props) {
 
   window['__onGCastApiAvailable'] = function(isAvailable) {
     // TODO: Enable Chromecast
-    // setIsCastAvailable(isAvailable)
+    setIsCastAvailable(isAvailable)
     isAvailable && CastPlayer.initialiseCastApi()
   }
 
