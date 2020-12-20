@@ -47,9 +47,15 @@ const categoriseVideos = (dataList) => {
     }).sort((a, b) => a.videos.length > b.videos.length ? -1 : 1)
 }
 
+const cachedPageToken = (pageToken) => pageToken ? `8tapes-youtube-page-${pageToken}` : false
+
 const getLikedVideos = (pageToken) => {
+    const storagePageToken = cachedPageToken(pageToken);
     return new Promise(async (resolve) => {
-        if(config.googleServices.ENABLE_AUTH) {
+        if(storagePageToken && localStorage.getItem(storagePageToken)) {
+            const response = localStorage.getItem(storagePageToken);
+            resolve(JSON.parse(response));
+        } else if(config.googleServices.ENABLE_AUTH) {
             const client = await GoogleAuth.getClient()
             const request = client.request({
                 'method': 'GET',
@@ -63,6 +69,7 @@ const getLikedVideos = (pageToken) => {
             });
     
             request.execute(function(response) {
+                storagePageToken && localStorage.setItem(storagePageToken, JSON.stringify(response));
                 resolve(response);
             });
         } else {
@@ -82,9 +89,14 @@ const getLikedVideos = (pageToken) => {
     })    
 }
 
-export default async function loadLikedVideos(dataList = [], pageToken) {
+export default async function loadLikedVideos(setLoadingProgress, dataList = [], pageToken) {
+    let numberOfVideos = 0;
     const getSome = async (dataList, pageToken, resolve) => {
         const data = await getLikedVideos(pageToken)
+        
+        numberOfVideos += data.items.length
+        setLoadingProgress((numberOfVideos * 100) / data.pageInfo.totalResults)
+        
         const result = dataList.concat([data])
         const { nextPageToken } = data
         if (nextPageToken && dataList.length < pageLimit) {

@@ -1,6 +1,6 @@
 import './browse.css';
 
-import { Col, Row } from 'antd';
+import { Col, Progress, Row } from 'antd';
 import React, { useEffect, useState } from "react";
 
 import { Card } from 'antd';
@@ -16,6 +16,7 @@ export default function Browse(props) {
   const [videos, setVideos] = useState([]);
   const [selected, setSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const [fetchVideos, setFetchVideos] = useState(0);
   const [isCastAvailable, setIsCastAvailable] = useState(false)
 
@@ -28,10 +29,14 @@ export default function Browse(props) {
     setSelected(selectedItems)
   }
 
+  function handleLoadProgress(progress) {
+    setLoadingProgress(progress)
+  }
+
   useEffect(() => {
     async function onLoad() {
       try {
-        const videos = await loadLikedVideos();
+        const videos = await loadLikedVideos(handleLoadProgress);
         setVideos(videos);
       } catch (e) {
         console.error(e);
@@ -41,7 +46,7 @@ export default function Browse(props) {
       const lastQueue = localStorage.getItem('8tapes-queue')
       lastQueue && setSelected(JSON.parse(lastQueue))
     }
-
+    
     setTimeout(() => { onLoad() }, 1000);
   }, [fetchVideos]);
 
@@ -52,7 +57,10 @@ export default function Browse(props) {
   }
 
   function renderPazzaz() {
-    return (<img src={pizzaz} className="pizzaz" alt="pizzaz" />);
+    return (<>
+      <Progress strokeColor="#6ACBAA" className="pizzaz-progress" percent={loadingProgress} status="active" showInfo={false} />
+      <img src={pizzaz} className="pizzaz" alt="pizzaz" />
+    </>);
   }
 
   function renderVideos() {

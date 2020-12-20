@@ -3,6 +3,17 @@
     padding-bottom: 84px;
 }
 
+.pizzaz-progress {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.pizzaz-progress .ant-progress-inner {
+    vertical-align: top;
+}
+
 h1 {
     text-align: left;
     margin-left: 14px;
