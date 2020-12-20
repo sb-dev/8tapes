@@ -1,6 +1,7 @@
 import './layout.scss';
 
 import { Layout as AntdLayout, Dropdown, Menu } from 'antd';
+
 import { FaUserCircle } from 'react-icons/fa';
 import GoogleAuth from '../helpers/googleAuth';
 import React from "react";
@@ -14,6 +15,19 @@ function Layout(props) {
     await GoogleAuth.signOut();
     props.history.push("/");
   }
+
+  async function handleSwitchAccount() {
+    await GoogleAuth.signIn('select_account');
+    window.location.reload();
+  }
+
+
+  const menu = (
+    <Menu>
+      <Menu.Item onClick={handleSwitchAccount}>Switch Account</Menu.Item>
+      <Menu.Item onClick={handleSignOut}>Sign out</Menu.Item>
+    </Menu>
+  );
       
   return (
     <AntdLayout>
@@ -23,7 +37,9 @@ function Layout(props) {
             <img src={logo} alt="8tapes" />
           </div>
           <div className="secondary-navigation">
-            <div className="nav-item"><FaUserCircle /></div>
+            <Dropdown overlay={menu}>
+              <div className="nav-item"><FaUserCircle /></div>
+            </Dropdown>
           </div>
         </div>
         </Header>

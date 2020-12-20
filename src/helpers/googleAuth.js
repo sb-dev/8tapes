@@ -1,4 +1,4 @@
-const gapi = window.gapi;
+import { gapi } from './gapiScript';
 
 export default class GoogleAuth {
     static auth;
@@ -66,8 +66,15 @@ export default class GoogleAuth {
         }
     }
 
-    static async signIn() {
-        return await this.auth.signIn();
+    static async signIn(prompt) {
+        if(prompt) {
+            const options = new gapi.auth2.SigninOptionsBuilder()
+                                    .setPrompt(prompt);
+                                    
+            return await this.auth.signIn(options);
+        } else {
+            return await this.auth.signIn();
+        }
     }
 
     static async signOut() {

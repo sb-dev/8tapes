@@ -1,10 +1,14 @@
 import React from "react";
 import axios from "axios";
 import { getProgress } from "./mediaPlayerHelpers";
+import { loadScriptAsync } from "./loadScript";
 import youTubePlayer from "youtube-player";
 
 const cast = window.cast;
 const chrome = window.chrome;
+
+const SENDER_SDK_URL =
+  '//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1';
 
 /**
  * MediaPlayer
@@ -452,6 +456,26 @@ export class CastPlayer {
     PAUSED: "PAUSED",
   };
 
+  static loadCastSDK() {
+    if (window['cast'] && window['cast']['framework']) {
+      return Promise.resolve();
+    }
+    return loadScriptAsync(SENDER_SDK_URL);
+  }
+
+  static loadFramework() {
+    return new Promise((resolve, reject) => {
+      CastPlayer.loadCastSDK()
+        .then(() => {
+          console.warn('Cast sender lib has been loaded successfully');
+        })
+        .catch(e => {
+          console.warn('Cast sender lib loading failed', e);
+          reject(e);
+        });
+    });
+  }
+
   static initialiseCastApi() {
     cast.framework.CastContext.getInstance().setOptions({
       receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
@@ -556,7 +580,8 @@ export class CastPlayer {
 
   destroy() {}
 
-  initInternalPlayer() {
+  async initInternalPlayer() {
+    await CastPlayer.loadFramework();
     this.remotePlayer = new cast.framework.RemotePlayer();
     this.remotePlayerController = new cast.framework.RemotePlayerController(
       this.remotePlayer
