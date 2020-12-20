@@ -17,8 +17,8 @@ export default function Browse(props) {
   const [selected, setSelected] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingProgress, setLoadingProgress] = useState(0);
-  const [fetchVideos, setFetchVideos] = useState(0);
-  const [isCastAvailable, setIsCastAvailable] = useState(false)
+  const [fetchVideos] = useState(0);
+  const [isCastAvailable] = useState(false)
 
   function handleVideoClick(video) {
     isMobile ? window.open(video.url, "_blank") : updateSelected([video])
