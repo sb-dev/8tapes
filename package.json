@@ -21,7 +21,7 @@
     "react-icons": "^3.10.0",
     "react-lazyload": "^2.6.5",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.0",
+    "react-scripts": "5.0.1",
     "react-youtube": "^7.9.0",
     "youtube-dl": "^3.0.2",
     "youtube-player": "^5.5.2"
